@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
-
+import Routes from './Routes';
+// import Navbar from './Navbar';
+import Microblog from './Microblog'
+import PostContext from './PostContext'
 function App() {
+  const [post, setPost] = useState([]);
+  const [comments, setComments] = useState([]);
+  const addPost = postObj => {
+    console.log('hello from add post')
+    console.log(postObj)
+    setPost(post => [...post, postObj]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        {/* <Navbar/> */}
+        <PostContext.Provider value={{ post, setPost, addPost, comments, setComments }}>
+          <Microblog/>
+          <Routes/>
+        </PostContext.Provider>
     </div>
   );
 }
